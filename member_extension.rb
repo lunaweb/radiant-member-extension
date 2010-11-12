@@ -30,7 +30,12 @@ class MemberExtension < Radiant::Extension
     if RAILS_ENV == 'production'
       MemberExtensionSettings.check!
     end
-    admin.nav["settings"] << admin.nav_item(:members, "Members", "/admin/members")
+    
+#    admin.nav["settings"] << admin.nav_item(:members, "Members", "/admin/members")
+    tab "Members" do
+      add_item 'List', "/admin/members"
+    end
+    
     ApplicationController.send(:include, ApplicationControllerMemberExtensions)
     SiteController.class_eval do
       include AuthenticatedMembersSystem
