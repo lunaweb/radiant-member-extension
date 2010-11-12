@@ -47,4 +47,5 @@ class MemberSessionsController < ApplicationController
     def note_succesful_logout(config = Radiant::Config)
       config["Member.succesful_logout"].blank? ? flash[:notice] = "You have been logged out." : flash[:notice] = config["Member.succesful_logout"]
     end
+    
 end
