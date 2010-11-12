@@ -1,22 +1,16 @@
-var Flash = Class.create({
-  initialize: function () {
-    var jar = new CookieJar({
-      expires:3600,
-      path: '/'
-    });
-    this.flash = jar.get('flash') || { };
-    jar.remove('flash');
-  },
-  
-  get: function(name) {
-    return this.flash[name]
-  },
-  
-  show: function(id, name) {
-    if (this.get(name)) {
-      $(id).update(this.get(name)).addClassName(name).show();
-    }
-  }
-});
-
-var flash = new Flash();
+var flash = new function(){
+	
+	this.get = function(type){
+		return this.cookie[type];
+	};
+	
+	this.show = function(id, type){
+		if(this.get(type)){
+			$('#'+id).addClass(type).html(this.get(type).replace(/\+/g, ' ')).show();
+		}
+	};
+	
+	this.cookie = $.cookies.get('flash') || {};
+	$.cookies.del('flash');
+	
+};

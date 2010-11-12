@@ -59,4 +59,5 @@ module MemberTags
   tag 'member:sessions' do |tag|
     "#{MemberExtensionSettings.defaults[:sessions_path]}"
   end
+  
 end
