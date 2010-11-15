@@ -10,7 +10,28 @@ var flash = new function(){
 		}
 	};
 	
-	this.cookie = $.cookies.get('flash') || {};
-	$.cookies.del('flash');
+	this.cookie = {};
 	
+	// récupération du cookie
+	var separated = document.cookie.split( ';' );
+	for(var i=0; i<separated.length; i++){
+		pair = separated[i].split('=');
+		name = pair[0].replace( /^\s*/, '' ).replace( /\s*$/, '' );
+		
+		if(name == 'flash'){
+			try{
+				value = decodeURIComponent(pair[1]);
+				eval('var value = '+value+';');
+			}
+			catch(e){
+				value = pair[1];
+			}
+			this.cookie = value;
+		}
+	}
+	
+	// suppression du cookie flash
+	var date = new Date();
+	date.setTime(date.getTime() - (3600 * 1000));
+	document.cookie = 'flash=; expires=' + date.toGMTString();
 };
